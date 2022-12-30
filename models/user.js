@@ -5,9 +5,10 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   first_name: { type: String, required: true, maxLength: 100 },
   family_name: { type: String, required: true, maxLength: 100 },
-  email: { type: String },
-  password: { type: String },
-  membership: { type: String },
+  email: { type: String, required: true},
+  password: { type: String, required: true },
+  membership: { type: String, required: true },
+  admin: { type: Boolean }
 });
 
 // Virtual for author's full name
