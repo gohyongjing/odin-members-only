@@ -1,5 +1,6 @@
 const async = require("async");
 const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 
 const Message = require("../models/message");
 const User = require("../models/user");
@@ -18,6 +19,7 @@ exports.index = (req, res) => {
       res.render("index", {
         title: "Members Only Home",
         error: err,
+        user: req.user,
         data: results,
       });
     }
@@ -40,7 +42,7 @@ exports.user_create_post = [
     .isLength({ min: 1 })
     .escape()
     .bail(),
-  body("email")
+  body("username")
     .trim()
     .isLength({ min: 1 })
     .withMessage("Email required")
@@ -49,9 +51,11 @@ exports.user_create_post = [
     .withMessage("Email not valid")
     .bail()
     .custom(async value => {
-      return User.findOne({ email: value }).exec((err, found_email) => {
-        return !(err || found_email)
-      })
+      let result = await User.findOne({ email: value });
+      if (result !== null) {
+        return Promise.reject(); // returning false does not work
+      return true;
+      }
     })
     .withMessage("Email already in use")
     .bail(),
@@ -69,13 +73,12 @@ exports.user_create_post = [
   (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
-
     // Create a genre object with escaped and trimmed data.
     const user = new User(
       {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        email: req.body.email,
+        email: req.body.username,
         password: req.body.password
       }
     );
@@ -102,10 +105,21 @@ exports.user_create_post = [
 ];
 
 exports.user_login_get = (req, res, next) => {
- res.send("NOT IMPLEMENTED");
+ res.render("login_form", { title: "Log In" });
 };
 
-exports.user_login_post = (req, res, next) => {
- res.send("NOT IMPLEMENTED");
+exports.user_login_post = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/user/login"
+});
+
+exports.user_logout = (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 };
+
 

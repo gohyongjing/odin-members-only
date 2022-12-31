@@ -13,10 +13,16 @@ html(lang='en')
       div(class='d-flex flex-row')
         div(class='p-3') 
           h6 #[strong Members Only]
-        div(class='p-3')
-          a(href='/user/create') Create Account
-        div(class='p-3')
-          a(href='/user/login') Login
+        if user
+          div(class='p-3')
+            h5 Welcome back, !{user.name}
+          div(class='p-3')
+            a(href='/user/logout') Log out
+        else
+          div(class='p-3')
+            a(href='/user/create') Create Account
+          div(class='p-3')
+            a(href='/user/login') Log in
       hr
       div
         block content

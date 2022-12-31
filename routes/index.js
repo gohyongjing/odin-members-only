@@ -15,11 +15,14 @@ router.get('/user/create', userController.user_create_get)
 /* Post request for creating a new user. */
 router.post('/user/create', userController.user_create_post)
 
-/* Get request for loging in user. */
+/* Get request for logging in user. */
 router.get('/user/login', userController.user_login_get)
 
-/* Post request for loging in user. */
+/* Post request for logging in user. */
 router.post('/user/login', userController.user_login_post)
+
+/* Get request for logging out user. */
+router.get('/user/logout', userController.user_logout)
 
 /// Message Routes ///
 
