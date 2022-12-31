@@ -11,12 +11,12 @@ html(lang='en')
   body
     div(class='container-fluid')
       div(class='d-flex flex-row')
+        div(class='p-3') 
+          h6 #[strong Members Only]
         div(class='p-3')
-          a(href='/') Members Only
+          a(href='/user/create') Create Account
         div(class='p-3')
-          a(href='/user/create') Log in
-        div(class='p-3')
-          a(href='/user/login') Create Account
+          a(href='/user/login') Login
       hr
       div
         block content

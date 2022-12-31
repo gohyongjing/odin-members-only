@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const userController = require("../controllers/userController");
 const messageController = require("../controllers/messageController");
@@ -16,10 +16,10 @@ router.get('/user/create', userController.user_create_get)
 router.post('/user/create', userController.user_create_post)
 
 /* Get request for loging in user. */
-router.get('/user/create', userController.user_login_get)
+router.get('/user/login', userController.user_login_get)
 
 /* Post request for loging in user. */
-router.post('/user/create', userController.user_login_post)
+router.post('/user/login', userController.user_login_post)
 
 /// Message Routes ///
 
