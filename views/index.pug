@@ -13,5 +13,14 @@ block content
 
     ul
       li #[strong Users:] !{data.user_count}
-      li #[strong Messages:] !{data.message_count}
+      li #[strong Messages:] !{data.messages.length}
+    
+    
+    each message in data.messages
+      if user
+        p !{message.author} !{message.timestamp}
+          
+      p !{message.text}
 
+    else
+      li There are no messages

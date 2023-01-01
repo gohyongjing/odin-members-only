@@ -10,12 +10,14 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     div(class='container-fluid')
-      div(class='d-flex flex-row')
+      div(class='d-flex flex-row align-items-center')
         div(class='p-3') 
           h6 #[strong Members Only]
         if user
           div(class='p-3')
             h5 Welcome back, !{user.name}
+          div(class='p-3')
+            a(href='/message/create') New Message
           div(class='p-3')
             a(href='/user/logout') Log out
         else

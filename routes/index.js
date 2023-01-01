@@ -6,9 +6,6 @@ const messageController = require("../controllers/messageController");
 
 /// User Routes ///
 
-/* Get request for home page. */
-router.get('/', userController.index)
-
 /* Get request for creating a new user. */
 router.get('/user/create', userController.user_create_get)
 
@@ -26,8 +23,8 @@ router.get('/user/logout', userController.user_logout)
 
 /// Message Routes ///
 
-/* Get request for retrieving all messages. */
-router.get('/messages', messageController.message_list);
+/* Get request for home page. */
+router.get('/', messageController.index)
 
 /* Get request for creating a new message. */
 router.get('/message/create', messageController.message_create_get)

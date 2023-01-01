@@ -5,27 +5,6 @@ const passport = require("passport");
 const Message = require("../models/message");
 const User = require("../models/user");
 
-exports.index = (req, res) => {
-  async.parallel(
-    {
-      user_count(callback) {
-        User.countDocuments({}, callback);
-      },
-      message_count(callback) {
-        Message.countDocuments({}, callback);
-      },
-    },
-    (err, results) => {
-      res.render("index", {
-        title: "Members Only Home",
-        error: err,
-        user: req.user,
-        data: results,
-      });
-    }
-  );
-};
-
 exports.user_create_get = (req, res, next) => {
   res.render("user_form", { title: "Create Account" });
 };
