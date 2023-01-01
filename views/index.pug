@@ -17,10 +17,12 @@ block content
     
     
     each message in data.messages
+      hr
+      h5 !{message.title}
       if user
-        p !{message.author} !{message.timestamp}
-          
+        p #[strong !{message.author.name}] !{message.timestamp_formatted}
       p !{message.text}
+
 
     else
       li There are no messages

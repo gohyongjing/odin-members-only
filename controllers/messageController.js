@@ -12,7 +12,10 @@ exports.index = (req, res) => {
       },
       messages(callback) {
         if (req.user) {
-          Message.find().exec(callback);
+          Message
+            .find()
+            .populate('author')
+            .exec(callback);
         } else {
           Message.find({}, "title text").exec(callback);
         }
