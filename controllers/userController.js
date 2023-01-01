@@ -84,12 +84,13 @@ exports.user_create_post = [
 ];
 
 exports.user_login_get = (req, res, next) => {
- res.render("login_form", { title: "Log In" });
+ res.render("login_form", { errors: req.session.messages });
 };
 
 exports.user_login_post = passport.authenticate("local", {
   successRedirect: "/",
-  failureRedirect: "/user/login"
+  failureRedirect: "/user/login",
+  failureMessage: true
 });
 
 exports.user_logout = (req, res, next) => {
