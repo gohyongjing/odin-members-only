@@ -21,6 +21,12 @@ router.post('/user/login', userController.user_login_post)
 /* Get request for logging out user. */
 router.get('/user/logout', userController.user_logout)
 
+/* Get request for becoming a member. */
+router.get('/user/join_member', userController.join_member_get)
+
+/* Post request for becoming a member. */
+router.post('/user/join_member', userController.join_member_post)
+
 /// Message Routes ///
 
 /* Get request for home page. */

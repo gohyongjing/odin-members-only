@@ -17,7 +17,12 @@ html(lang='en')
           div(class='p-3')
             h5 Welcome back, !{user.name}
           div(class='p-3')
+            h6=(user.membership ? 'Member' : 'Not a member')
+          div(class='p-3')
             a(href='/message/create') New Message
+          if !user.membership
+            div(class='p-3')
+              a(href='/user/join_member') Become a member
           div(class='p-3')
             a(href='/user/logout') Log out
         else
