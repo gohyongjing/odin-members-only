@@ -1,4 +1,5 @@
 const async = require("async");
+const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 
@@ -53,33 +54,35 @@ exports.user_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
     // Create a genre object with escaped and trimmed data.
-    const user = new User(
-      {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        password: req.body.password
-      }
-    );
-
-    if (!errors.isEmpty()) {
-      // There are errors. Render the form again with sanitized values/error messages.
-      res.render("user_form", {
-        title: "Create User",
-        user,
-        errors: errors.array(),
-        confirm_password: req.body.confirm_password
-      });
-    } else {
-      // Data from form is valid.
-      user.save((err) => {
-        if (err) {
-          return next(err);
+    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+      const user = new User(
+        {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          email: req.body.email,
+          password: hashedPassword
         }
-        // user saved. Redirect to login page.
-        res.redirect('/user/login');
-      });
-    }
+      );
+
+      if (!errors.isEmpty()) {
+        // There are errors. Render the form again with sanitized values/error messages.
+        res.render("user_form", {
+          title: "Create User",
+          user,
+          errors: errors.array(),
+          confirm_password: req.body.confirm_password
+        });
+      } else {
+        // Data from form is valid.
+        user.save((err) => {
+          if (err) {
+            return next(err);
+          }
+          // user saved. Redirect to login page.
+          res.redirect('/user/login');
+        });
+      }
+    });
   },
 ];
 
