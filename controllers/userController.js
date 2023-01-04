@@ -98,9 +98,7 @@ exports.user_logout = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    req.session.destroy((err) => {
-      res.redirect("/");
-    });
+    res.redirect("/");
   });
 };
 

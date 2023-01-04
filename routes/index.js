@@ -18,8 +18,8 @@ router.get('/user/login', userController.user_login_get)
 /* Post request for logging in user. */
 router.post('/user/login', userController.user_login_post)
 
-/* Get request for logging out user. */
-router.get('/user/logout', userController.user_logout)
+/* Post request for logging out user. */
+router.post('/user/logout', userController.user_logout)
 
 /* Get request for becoming a member. */
 router.get('/user/join_member', userController.join_member_get)

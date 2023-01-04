@@ -24,7 +24,8 @@ html(lang='en')
             div(class='p-3')
               a(href='/user/join_member') Become a member
           div(class='p-3')
-            a(href='/user/logout') Log out
+            form(method='POST' action='/user/logout')
+              button.btn.btn-secondary(type='submit') Logout
         else
           div(class='p-3')
             a(href='/user/create') Create Account
