@@ -85,9 +85,22 @@ exports.message_create_post = [
 ]
 
 exports.message_delete_get = (req, res, next) => {
- res.send("NOT IMPLEMENTED");
+  Message.findById(req.params.id).exec((err, message) => {
+    if (err) {
+      return next(err);
+    } else if (message == null) {
+      res.redirect('/');
+    } else {
+      res.render("message_delete", { user: req.user, message })
+    }
+  });
 }
 
 exports.message_delete_post = (req, res, next) => {
- res.send("NOT IMPLEMENTED");
+  Message.findByIdAndRemove(req.body.message_id, (err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
 }

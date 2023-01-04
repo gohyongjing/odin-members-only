@@ -17,9 +17,11 @@ block content
     
     each message in data.messages
       hr
-      h5 !{message.title}
+      h5 !{message.title} 
       if user && user.membership
         p #[strong !{message.author.name}] !{message.timestamp_formatted}
+      if user && user.admin
+        a(href=(`/message/${message._id}/delete`)) Delete
       p !{message.text}
 
 

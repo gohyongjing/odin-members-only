@@ -45,9 +45,9 @@ router.get('/message/create', messageController.message_create_get)
 router.post('/message/create', messageController.message_create_post)
 
 /* Get request for deleting a message. */
-router.get('/message/delete', messageController.message_delete_get)
+router.get('/message/:id/delete', messageController.message_delete_get)
 
 /* Post request for deleting a message. */
-router.post('/message/delete', messageController.message_delete_post)
+router.post('/message/:id/delete', messageController.message_delete_post)
 
 module.exports = router;
