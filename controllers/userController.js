@@ -144,3 +144,42 @@ exports.join_member_post = [
   }
 ];
 
+exports.join_admin_get = (req, res, next) => {
+  res.render("member_form", { user: req.user });
+}
+
+exports.join_admin_post = [
+  // Validate and sanitize the fields.
+  body("secret_code", "Incorrect secret code")
+    .trim()
+    .escape()
+    .equals('admin'),
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    if (!req.user) {
+      res.redirect('/user/login');
+    } else {
+      // Extract the validation errors from a request.
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        // There are errors. Render the form again with sanitized values/error messages.
+        res.render("member_form", {
+          secret_code: req.body.secret_code,
+          errors: errors.array(),
+          user: req.user
+        });
+      } else {
+        // Data from form is valid.
+        User.findByIdAndUpdate(req.user._id, { membership: true, admin: true }, (err, result) => {
+          if (err) {
+            return next(err);
+          } else {
+          res.redirect('/');
+          }
+        });
+      }
+    }
+  }
+];
+

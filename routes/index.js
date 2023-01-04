@@ -27,6 +27,12 @@ router.get('/user/join_member', userController.join_member_get)
 /* Post request for becoming a member. */
 router.post('/user/join_member', userController.join_member_post)
 
+/* Get request for becoming a admin. */
+router.get('/user/join_admin', userController.join_admin_get)
+
+/* Post request for becoming a admin. */
+router.post('/user/join_admin', userController.join_admin_post)
+
 /// Message Routes ///
 
 /* Get request for home page. */
